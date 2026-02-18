@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-3hch&_4d@*(911p9i6yfj
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://student-management-system-production-c799.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = ['https://student-management-system-production-c799.up.railway.app']
 CSRF_COOKIE_SECURE = True
 
 # Application definition
