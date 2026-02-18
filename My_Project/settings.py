@@ -26,7 +26,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-3hch&_4d@*(911p9i6yfj
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['https://student-management-system-production-c799.up.railway.app/']
+CSRF_COOKIE_SECURE = True
 
 # Application definition
 
@@ -125,3 +126,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
