@@ -64,36 +64,34 @@ Then open your browser and go to `http://127.0.0.1:8000/`
 
 ## Running with Docker
 
-If you prefer Docker:
+### Option A — Build it yourself
+
+If you want to build the image from source:
 
 ```bash
 docker build -t student-management .
-docker run -p 8000:8000 student-management
+docker run -p 8000:8000 -e PORT=8000 student-management
 ```
 
-Then visit `http://localhost:8000/`
+### Option B — Pull my pre-built image from Docker Hub
 
----
+No need to clone the repo or build anything. Just have Docker Desktop installed and run these two commands:
 
-## Project structure
-
-```
-Student-Management-System/
-│
-├── My_Project/        # Django project settings
-├── Student_App/       # The main app (models, views, urls, templates)
-├── manage.py
-├── requirements.txt
-├── Dockerfile
-├── Procfile           # for deployment
-└── runtime.txt        # Python version
+**1. Pull the image**
+```bash
+docker pull maheshkiran/student-management-system:latest
 ```
 
----
+**2. Run it**
+```bash
+docker run -p 8000:8000 -e PORT=8000 maheshkiran/student-management-system:latest
+```
 
-## Deployment
+**3. Open your browser and go to** `http://localhost:8000/`
 
-This project is deployed on **Railway** using Docker. The `Dockerfile` and `Procfile` are already set up so you can deploy it pretty easily if you want to fork and host your own version.
+To stop it, just press `Ctrl + C` in the terminal.
+
+> **Note:** Data won't persist between container restarts since it uses SQLite inside Docker. Fine for testing and exploring the app.
 
 ---
 
