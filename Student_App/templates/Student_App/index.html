@@ -1,135 +1,154 @@
 {% extends "Student_App/base.html" %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-12">
-            {% if Student_App %}
-                <div class="card bg-light ms-4 me-4 mb-4">
-                    <div class="card-header" id="scrl">
-                        <i class="fa-solid fa-list-ul fa-lg"></i> Student Records
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Student Pin</th>
-                                        <th scope="col">First Name</th>
-                                        <th scope="col">Last Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Course</th>
-                                        <th scope="col">CGPA</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for student in Student_App %}
-                                    <tr class="table-info">
-                                        <td>{{ student.student_pin }}</td>
-                                        <td>{{ student.first_name }}</td>
-                                        <td>{{ student.last_name }}</td>
-                                        <td>{{ student.email }}</td>
-                                        <td>{{ student.course }}</td>
-                                        <td>{{ student.cgpa }}</td>
-                                        <td>
-                                            <!-- INFO BUTTON — no href needed, modal handles display -->
-                                            <button type="button" class="btn btn-success me-1"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#myModal{{ student.student_pin }}">
-                                                <i class="fa-solid fa-circle-info fa-lg"></i>
-                                            </button>
+<div class="row">
+    <div class="col-12">
+        {% if page_obj %}
+        <div class="card bg-light ms-4 me-4 mb-4">
+            <div class="card-header" id="scrl">
+                <i class="fa-solid fa-list-ul fa-lg"></i> Student Records
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Student Pin</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Course</th>
+                                <th scope="col">CGPA</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in page_obj %}
+                            <tr class="table-info">
+                                <td>{{ student.student_pin }}</td>
+                                <td>{{ student.first_name }}</td>
+                                <td>{{ student.last_name }}</td>
+                                <td>{{ student.email }}</td>
+                                <td>{{ student.course }}</td>
+                                <td>{{ student.cgpa }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-success me-1"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#myModal{{ student.student_pin }}">
+                                        <i class="fa-solid fa-circle-info fa-lg"></i>
+                                    </button>
 
-                                            <!-- Info Modal -->
-                                            <div class="modal fade" id="myModal{{ student.student_pin }}"
-                                                 tabindex="-1" aria-labelledby="infoLabel{{ student.student_pin }}"
-                                                 aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h3 style="color: #ff007b;" class="modal-title"
-                                                                id="infoLabel{{ student.student_pin }}">
-                                                                {{ student.first_name }} {{ student.last_name }}
-                                                            </h3>
-                                                            <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <ul class="list-unstyled">
-                                                                <li style="color:#ff6600;">Batch No: <strong>{{ student.batch_no }}</strong></li>
-                                                                <li style="color:#ff6600;">Student Pin: <strong>{{ student.student_pin }}</strong></li>
-                                                                <li style="color:#ff6600;">Name: <strong>{{ student.first_name }} {{ student.last_name }}</strong></li>
-                                                                <li style="color:#ff6600;">Age: <strong>{{ student.age }}</strong></li>
-                                                                <li style="color:#ff6600;">Date of Birth: <strong>{{ student.dob }}</strong></li>
-                                                                <li style="color:#ff6600;">Email: <strong>{{ student.email }}</strong></li>
-                                                                <li style="color:#ff6600;">Phone No: <strong>{{ student.mobile }}</strong></li>
-                                                                <li style="color:#ff6600;">Course: <strong>{{ student.course }}</strong></li>
-                                                                <li style="color:#ff6600;">CGPA: <strong>{{ student.cgpa }}</strong></li>
-                                                                <li style="color:#ff6600;">College: <strong>{{ student.college }}</strong></li>
-                                                                <li style="color:#ff6600;">Fee: <strong>{{ student.fee }}</strong></li>
-                                                                <li style="color:#ff6600;">Admission Date: <strong>{{ student.admission_date }}</strong></li>
-                                                                <li style="color:#ff6600;">Address: <strong>{{ student.address }}</strong></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary"
-                                                                    data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
+                                    <div class="modal fade" id="myModal{{ student.student_pin }}"
+                                        tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h3 style="color: #ff007b;" class="modal-title">
+                                                        {{ student.first_name }} {{ student.last_name }}
+                                                    </h3>
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul class="list-unstyled">
+                                                        <li style="color:#ff6600;">Batch No: <strong>{{ student.batch_no }}</strong></li>
+                                                        <li style="color:#ff6600;">Student Pin: <strong>{{ student.student_pin }}</strong></li>
+                                                        <li style="color:#ff6600;">Name: <strong>{{ student.first_name }} {{ student.last_name }}</strong></li>
+                                                        <li style="color:#ff6600;">Age: <strong>{{ student.age }}</strong></li>
+                                                        <li style="color:#ff6600;">Date of Birth: <strong>{{ student.dob }}</strong></li>
+                                                        <li style="color:#ff6600;">Email: <strong>{{ student.email }}</strong></li>
+                                                        <li style="color:#ff6600;">Phone No: <strong>{{ student.mobile }}</strong></li>
+                                                        <li style="color:#ff6600;">Course: <strong>{{ student.course }}</strong></li>
+                                                        <li style="color:#ff6600;">CGPA: <strong>{{ student.cgpa }}</strong></li>
+                                                        <li style="color:#ff6600;">College: <strong>{{ student.college }}</strong></li>
+                                                        <li style="color:#ff6600;">Fee: <strong>{{ student.fee }}</strong></li>
+                                                        <li style="color:#ff6600;">Admission Date: <strong>{{ student.admission_date }}</strong></li>
+                                                        <li style="color:#ff6600;">Address: <strong>{{ student.address }}</strong></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary"
+                                                        data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
 
-                                            <!-- Edit Button -->
-                                            <a class="btn btn-warning me-1" href="{% url 'edit' student.student_pin %}">
-                                                <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                                            </a>
+                                    <a class="btn btn-warning me-1" href="{% url 'edit' student.student_pin %}">
+                                        <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                                    </a>
 
-                                            <!-- Delete Button -->
-                                            <button type="button" class="btn btn-danger"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#delete{{ student.student_pin }}">
-                                                <i class="fa-solid fa-trash-can fa-lg"></i>
-                                            </button>
+                                    <button type="button" class="btn btn-danger"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#delete{{ student.student_pin }}">
+                                        <i class="fa-solid fa-trash-can fa-lg"></i>
+                                    </button>
 
-                                            <!-- Delete Confirmation Modal -->
-                                            <div class="modal fade" id="delete{{ student.student_pin }}"
-                                                 tabindex="-1" aria-labelledby="deleteLabel{{ student.student_pin }}"
-                                                 aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h3 class="modal-title"
-                                                                id="deleteLabel{{ student.student_pin }}">
-                                                                {{ student.first_name }} {{ student.last_name }}
-                                                            </h3>
-                                                            <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p style="color:#f54c40;">Are you sure you want to delete this student?</p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <form action="{% url 'delete' student.student_pin %}" method="POST">
-                                                                {% csrf_token %}
-                                                                <input type="submit" class="btn btn-danger" value="Delete">
-                                                            </form>
-                                                            <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Cancel</button>
-                                                        </div>
-                                                    </div>
+                                    <div class="modal fade" id="delete{{ student.student_pin }}"
+                                        tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h3 class="modal-title">
+                                                        {{ student.first_name }} {{ student.last_name }}
+                                                    </h3>
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p style="color:#f54c40;">Are you sure you want to delete this student?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{% url 'delete' student.student_pin %}" method="POST">
+                                                        {% csrf_token %}
+                                                        <input type="submit" class="btn btn-danger" value="Delete">
+                                                    </form>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
 
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    {% if page_obj.has_other_pages %}
+                    <nav class="mt-3">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}">Previous</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                            <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                                <a class="page-link" href="?page={{ num }}&search={{ search_query }}">{{ num }}</a>
+                            </li>
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search_query }}">Next</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled"><span class="page-link">Next</span></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+
                 </div>
-            {% else %}
-                <h5 class="alert alert-primary ms-4 me-4 mb-4">No Student Records Found</h5>
-            {% endif %}
+            </div>
         </div>
+        {% else %}
+        <h5 class="alert alert-primary ms-4 me-4 mb-4">No Student Records Found</h5>
+        {% endif %}
     </div>
+</div>
 {% endblock %}

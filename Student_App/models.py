@@ -6,7 +6,7 @@ class Student(models.Model):
     student_pin = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100)
+    email = models.EmailField(max_length=100, unique=True)
     course = models.CharField(max_length=50)
     mobile = models.CharField(max_length=10, validators=[RegexValidator(r'^\d{10}$')])
     age = models.IntegerField()
