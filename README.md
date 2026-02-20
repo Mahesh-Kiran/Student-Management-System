@@ -2,8 +2,6 @@
 
 A simple web app I built to manage student records. You can add students, view them, search through them, and delete them. Nothing too fancy — just a clean CRUD app built with Django and deployed on Railway.
 
-**Live demo:** https://student-management-system-production-c799.up.railway.app/
-
 ---
 
 ## What it does
