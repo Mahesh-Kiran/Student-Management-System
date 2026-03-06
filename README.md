@@ -1,33 +1,34 @@
-# EduHub - Student Management System
+# EduHub — Student Management System
 
-A simple web app I built to manage student records. You can add students, view them, search through them, and delete them. Nothing too fancy — just a clean CRUD app built with Django and deployed on Railway.
+A web app I built to manage student records. You can add students, view them, search through them, edit their details, and delete them. Started as a simple CRUD project and I kept improving it — added pagination, caching, and duplicate protection along the way.
+
+**Live demo:** https://student-management-system-production-c799.up.railway.app/
 
 ---
 
 ## What it does
 
 - Add new student records
-- View all students in one place
-- Search for a specific student
-- Delete student records
-- Shows a count of how many students are in the system
-
-That's pretty much it. It's meant to be straightforward and easy to use.
+- View all students in a paginated table — 5 per page
+- Search by name, email, or course — the footer count updates with results too
+- Edit or delete any student
+- Duplicate email protection — same student can't be added twice
+- ETag caching — pages load faster on repeat visits if nothing changed
 
 ---
 
 ## Tech used
 
-- **Python / Django** — backend framework
-- **HTML / CSS** — frontend (kept it simple)
-- **Docker** — containerized so it runs the same everywhere
-- **Railway** — where it's deployed and hosted
+- **Python / Django** — backend
+- **Bootstrap 5** — frontend
+- **SQLite** — database
+- **Gunicorn + Whitenoise** — production server and static files
+- **Docker** — containerized for deployment
+- **Railway** — where it's hosted
 
 ---
 
 ## Running it locally
-
-Make sure you have Python installed before you start.
 
 **1. Clone the repo**
 ```bash
@@ -35,7 +36,7 @@ git clone https://github.com/Mahesh-Kiran/Student-Management-System.git
 cd Student-Management-System
 ```
 
-**2. Set up a virtual environment** (optional but recommended)
+**2. Set up a virtual environment**
 ```bash
 python -m venv venv
 source venv/bin/activate        # on Windows: venv\Scripts\activate
@@ -56,46 +57,39 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-Then open your browser and go to `http://127.0.0.1:8000/`
+Open `http://127.0.0.1:8000/`
 
 ---
 
 ## Running with Docker
 
-### Option A — Build it yourself
+**Option A — Just the CRUD app (original)**
+```bash
+docker pull maheshkiran/student-management-system:latest
+docker run -p 8000:8000 -e PORT=8000 maheshkiran/student-management-system:latest
+```
 
-If you want to build the image from source:
+**Option B — With pagination, ETag caching and idempotency (v2.0)**
+```bash
+docker pull maheshkiran/student-management-system_v2.0:latest
+docker run -p 8000:8000 -e PORT=8000 maheshkiran/student-management-system_v2.0:latest
+```
 
+**Option C — Build from source**
 ```bash
 docker build -t student-management .
 docker run -p 8000:8000 -e PORT=8000 student-management
 ```
 
-### Option B — Pull my pre-built image from Docker Hub
+Open `http://localhost:8000/` — press `Ctrl + C` to stop.
 
-No need to clone the repo or build anything. Just have Docker Desktop installed and run these two commands:
-
-**1. Pull the image**
-```bash
-docker pull maheshkiran/student-management-system:latest
-```
-
-**2. Run it**
-```bash
-docker run -p 8000:8000 -e PORT=8000 maheshkiran/student-management-system:latest
-```
-
-**3. Open your browser and go to** `http://localhost:8000/`
-
-To stop it, just press `Ctrl + C` in the terminal.
-
-> **Note:** Data won't persist between container restarts since it uses SQLite inside Docker. Fine for testing and exploring the app.
+> Data resets when the container stops since SQLite lives inside it. Fine for testing.
 
 ---
 
 ## Contributing
 
-Feel free to fork this and make it your own. If you find a bug or have a suggestion, open an issue and I'll take a look.
+Fork it and make it your own. Found a bug or have a suggestion — open an issue.
 
 ---
 
