@@ -53,26 +53,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'My_Project.wsgi.application'
 
-# Vercel's file system is read-only, so we must copy the SQLite db to /tmp to use it
-if os.environ.get('VERCEL') == '1':
-    import shutil
-    tmp_db = '/tmp/db.sqlite3'
-    if not os.path.exists(tmp_db):
-        shutil.copy(BASE_DIR / 'db.sqlite3', tmp_db)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': tmp_db,
-        }
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+import dj_database_url
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+# If DATABASE_URL is found in the environment (like on Vercel), it will override the SQLite DB
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
