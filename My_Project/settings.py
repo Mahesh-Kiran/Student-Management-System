@@ -9,8 +9,8 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://student-management-system-production-c799.up.railway.app']
-CSRF_COOKIE_SECURE = not DEBUG  # True on Railway (HTTPS), False locally (HTTP)
+CSRF_TRUSTED_ORIGINS = ['https://*.vercel.app']
+CSRF_COOKIE_SECURE = not DEBUG  # True on Vercel (HTTPS), False locally (HTTP)
 
 INSTALLED_APPS = [
     'django.contrib.admin',

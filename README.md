@@ -2,7 +2,6 @@
 
 A web app I built to manage student records. You can add students, view them, search through them, edit their details, and delete them. Started as a simple CRUD project and I kept improving it — added pagination, caching, and duplicate protection along the way.
 
-**Live demo:** https://student-management-system-production-c799.up.railway.app/
 
 ---
 
@@ -24,7 +23,7 @@ A web app I built to manage student records. You can add students, view them, se
 - **SQLite** — database
 - **Gunicorn + Whitenoise** — production server and static files
 - **Docker** — containerized for deployment
-- **Railway** — where it's hosted
+- **Vercel** — where it's hosted
 
 ---
 
