@@ -18,7 +18,7 @@ local_settings.py
 media/
 
 # Static files (if using collectstatic)
-staticfiles/
+# staticfiles/ (We need to commit this for Vercel)
 
 # Migrations cache
 */migrations/__pycache__/
