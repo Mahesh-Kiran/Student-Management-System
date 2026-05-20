@@ -9,8 +9,8 @@ env/
 ENV/
 
 # SQLite database
-db.sqlite3
-*.sqlite3
+# db.sqlite3 (Removed from ignore list so Vercel gets the initial schema)
+# *.sqlite3
 
 # Django stuff:
 *.log
